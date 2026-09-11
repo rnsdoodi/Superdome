@@ -24,13 +24,14 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'superdome_secret_key_20
 # نستخدم SQLite محلياً إذا لم يكن المتغير موجوداً
 database_url = os.environ.get('DATABASE_URL', 'sqlite:///superdome.db')
 
-# إصلاح مشكلة Heroku القديمة (postgres:// بدلاً من postgresql://)
+# إصلاح مشكلة Heroku القديمة + تحديد المشغل psycopg (النسخة 3)
 if database_url.startswith("postgres://"):
-    database_url = database_url.replace("postgres://", "postgresql://", 1)
+    database_url = database_url.replace("postgres://", "postgresql+psycopg://", 1)
+elif database_url.startswith("postgresql://"):
+    database_url = database_url.replace("postgresql://", "postgresql+psycopg://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)

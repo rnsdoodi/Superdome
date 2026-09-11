@@ -8,7 +8,7 @@ with app.app_context():
 
     # Create default admin user
     if not User.query.filter_by(username='admin').first():
-        admin_password = os.environ.get('ADMIN_PASSWORD', '123')
+        admin_password = os.environ.get('ADMIN_PASSWORD', 'heroku config:set ADMIN_PASSWORD="your-admin-password"')
         hashed_pw = generate_password_hash(admin_password, method='pbkdf2:sha256')
         new_user = User(username='admin', password_hash=hashed_pw)
         db.session.add(new_user)
