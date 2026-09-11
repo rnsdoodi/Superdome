@@ -49,7 +49,7 @@ body {
 }
 
 .wfs-logo {
-    height: 150px;
+    height: 180px;
     width: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
@@ -75,7 +75,7 @@ body {
 .superdome-image-container {
     margin-bottom: 30px;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
     display: flex;
     justify-content: center;
     animation: slideUp 0.8s ease-out;
@@ -448,4 +448,158 @@ table tr:hover {
         padding: 10px;
         font-size: 0.85rem;
     }
+    /* =========================================
+   Mobile Responsive Design (تجاوب الجوال)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* --- Dashboard Container --- */
+    .dashboard-container {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    /* --- Header --- */
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    .header > div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .header .btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    /* --- Form Grid: كل حقل في سطر منفصل --- */
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+        padding: 15px;
+        border-right: none;
+        border-left: 4px solid var(--primary-green);
+        border-radius: 10px;
+    }
+
+    .form-grid input,
+    .form-grid textarea,
+    .form-grid button {
+        grid-column: span 1 !important;
+        width: 100% !important;
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+
+    .form-grid textarea {
+        min-height: 100px;
+    }
+
+    /* --- Table: تحسين العرض على الجوال --- */
+    .dashboard-container table {
+        font-size: 0.8rem;
+    }
+
+    .dashboard-container table th,
+    .dashboard-container table td {
+        padding: 8px 5px;
+        white-space: nowrap;
+    }
+
+    /* إخفاء عمود ID على الشاشات الصغيرة لتوفير المساحة */
+    .dashboard-container table th:first-child,
+    .dashboard-container table td:first-child {
+        display: none;
+    }
+
+    /* --- Actions Buttons --- */
+    .actions .btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+        margin: 2px 0;
+        display: block;
+        width: 100%;
+    }
+
+    /* --- Modal --- */
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-content h3 {
+        font-size: 1.1rem;
+    }
+
+    /* --- Login Box --- */
+    .login-box {
+        padding: 25px 20px;
+        width: 95%;
+    }
+
+    /* --- Landing Page --- */
+    .landing-title {
+        font-size: 2rem;
+    }
+
+    .landing-subtitle {
+        font-size: 1rem;
+        padding: 0 15px;
+    }
+
+    .wfs-logo {
+        height: 60px;
+    }
+
+    .landing-header {
+        padding: 15px 20px;
+    }
+
+    .large-superdome-img {
+        max-height: 250px;
+    }
+}
+
+/* =========================================
+   Extra Small Screens (شاشات صغيرة جداً)
+   ========================================= */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.1rem;
+    }
+
+    .landing-title {
+        font-size: 1.6rem;
+    }
+
+    .landing-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+
+    .form-grid {
+        padding: 12px;
+    }
+
+    .btn {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
 }
