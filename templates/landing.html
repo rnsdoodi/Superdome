@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- الحاوية الرئيسية مع خلفية متدرجة -->
+<div class="landing-wrapper" dir="ltr">
+
+    <!-- الهيدر: يحتوي على الشعار في الأعلى -->
+    <header class="landing-header">
+        <img src="{{ url_for('static', filename='assets/img/wfs1.png') }}" alt="WFS Logo" class="wfs-logo">
+    </header>
+
+    <!-- المحتوى الرئيسي في المنتصف -->
+    <main class="landing-main-content">
+        <div class="superdome-image-container">
+            <img src="{{ url_for('static', filename='assets/img/superdome.jpg') }}" alt="Jeddah Superdome" class="large-superdome-img">
+        </div>
+
+        <h1 class="landing-title">Jeddah Superdome</h1>
+        <p class="landing-subtitle">Company Requests Management Platform</p>
+
+        <a href="{{ url_for('login') }}" class="landing-btn">Login</a>
+    </main>
+
+</div>
+{% endblock %}

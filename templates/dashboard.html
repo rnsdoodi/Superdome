@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container" dir="ltr" style="text-align: left;">
+    <div class="header">
+        <h1>Company Requests Management</h1>
+        <div>
+            <a href="{{ url_for('export_excel') }}" class="btn btn-info">Export Excel</a>
+            <a href="{{ url_for('export_pdf') }}" class="btn btn-warning">Export PDF</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+
+    <!-- Add New Request Form -->
+    <form method="POST" class="form-grid">
+        <input type="text" name="person_name" placeholder="Person Name" required>
+        <input type="text" name="job_title" placeholder="Job Title" required>
+        <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9+\-\s()]{7,20}" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="text" name="company_name" placeholder="Company Name" required>
+        <textarea name="request_details" rows="3" placeholder="Request Details" required></textarea>
+        <button type="submit" class="btn btn-primary" style="grid-column: span 2;">Add Request</button>
+    </form>
+
+    <!-- Data Table -->
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Person Name</th>
+                    <th>Job Title</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Company</th>
+                    <th>Request Details</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in requests %}
+                <tr>
+                    <td>{{ req.id }}</td>
+                    <td>{{ req.person_name }}</td>
+                    <td>{{ req.job_title }}</td>
+                    <td>{{ req.phone }}</td>
+                    <td>{{ req.email }}</td>
+                    <td>{{ req.company_name }}</td>
+                    <td>{{ req.request_details }}</td>
+                    <td class="actions" style="white-space: nowrap;">
+                        <button class="btn btn-warning" onclick="openEditModal({{ req.id }}, '{{ req.person_name }}', '{{ req.job_title }}', '{{ req.phone }}', '{{ req.email }}', '{{ req.company_name }}', '{{ req.request_details }}')">Edit</button>
+                        <a href="{{ url_for('delete_request', id=req.id) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content" dir="ltr" style="text-align: left;">
+        <h3 style="color: var(--primary-green); margin-top: 0;">Edit Data</h3>
+        <form id="editForm" method="POST">
+            <div class="form-grid" style="border-right: none; border-left: 5px solid var(--primary-green); padding: 0; background: transparent;">
+                <input type="text" name="person_name" id="edit_person" placeholder="Person Name" required>
+                <input type="text" name="job_title" id="edit_job" placeholder="Job Title" required>
+                <input type="tel" name="phone" id="edit_phone" placeholder="Phone Number" pattern="[0-9+\-\s()]{7,20}" required>
+                <input type="email" name="email" id="edit_email" placeholder="Email Address" required>
+                <input type="text" name="company_name" id="edit_company" placeholder="Company Name" required>
+                <textarea name="request_details" id="edit_request" rows="3" placeholder="Request Details" required></textarea>
+                <button type="submit" class="btn btn-primary" style="grid-column: span 2;">Save Changes</button>
+                <button type="button" class="btn btn-danger" style="grid-column: span 2; margin-top: 5px;" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openEditModal(id, person, job, phone, email, company, request) {
+        document.getElementById('editModal').style.display = 'flex';
+        document.getElementById('editForm').action = '/edit/' + id;
+        document.getElementById('edit_person').value = person;
+        document.getElementById('edit_job').value = job;
+        document.getElementById('edit_phone').value = phone;
+        document.getElementById('edit_email').value = email;
+        document.getElementById('edit_company').value = company;
+        document.getElementById('edit_request').value = request;
+    }
+</script>
+{% endblock %}
